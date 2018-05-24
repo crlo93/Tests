@@ -27,7 +27,7 @@ public class RobotMovement : NetworkBehaviour {
 	private GameObject[] respawns;
 	private GameObject startRobot;
 
-	public override void OnStartServer() {
+	public override void OnStartLocalPlayer() {
 		respawns = GameObject.FindGameObjectsWithTag ("Robot");
 		startRobot = respawns[respawns.Length-1];
 		GameObject imageHp1 = GameObject.FindGameObjectWithTag("Hp1");
