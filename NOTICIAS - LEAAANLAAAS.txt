@@ -1,0 +1,8 @@
+Unity:
+  |-Version:  2018.1.2
+  |-Packages:
+    |-
+      |-Version:
+
+
+## Suban de nuevo sus archivos WEB de "api" y "ws" al FTP y añadanlos al "git" también ##
