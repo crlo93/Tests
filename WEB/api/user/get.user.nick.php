@@ -10,6 +10,8 @@ if (isset($_GET['id'])) {
 
   $Get->setTable('user');
 
+  $Get->addColumn('usr_nick');
+
   $Get->setWheres('usr_id = '.$_GET['id']);
 
   $Get->executeQuery();

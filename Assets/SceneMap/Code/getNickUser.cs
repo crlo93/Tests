@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Boomlagoon.JSON;
@@ -12,7 +12,8 @@ public class getNickUser : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		url = "http://robo-fightworld.bigbang.uno/api/user/get.user.php";
+		int id = 1; //Get id from variable of session user in unity
+		url = "http://robo-fightworld.bigbang.uno/api/user/get.user.nick.php?id="+id;
 		getData ();
 	}
 
