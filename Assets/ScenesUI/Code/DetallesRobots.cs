@@ -9,6 +9,8 @@ public class DetallesRobots : MonoBehaviour {
     public Image Imagen;
     public Text Descripcion;
     public Text Tipo;
+    public ToggleGroup tt;
+    private Toggle newToggle;
 
     // Use this for initialization
     void Start () {
@@ -19,7 +21,6 @@ public class DetallesRobots : MonoBehaviour {
         Nombre.text = robo.Nombre;
         Imagen.sprite = robo.Imagen;
         Descripcion.text = robo.Descripcion;
-        Tipo.text = robo.Tipo;
 
     }
 }
