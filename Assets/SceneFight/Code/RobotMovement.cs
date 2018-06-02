@@ -10,8 +10,10 @@ public class RobotMovement : NetworkBehaviour {
 	private float jump = 30f;
 	private float forceJump = 0f;
 	private float forceDash = 0f;
-	public float hp = 100;
-	private float maxHp = 100;
+	public float health1= 100;
+	private float maxhealth1= 100;
+	public float health2= 100;
+	private float maxhealth2= 100;
 	private bool canJump;
 	private int jumps;
 	private int attacks;
@@ -20,67 +22,104 @@ public class RobotMovement : NetworkBehaviour {
 	private Rigidbody rb;
 	private Transform tr;
 	private Animator anHead,anBody,anLarm,anRarm,anLegs; 
-	private Animator anHead1,anBody1,anLarm1,anRarm1,anLegs1; 
 	private GameObject head,body,larm,rarm,legs,headO,bodyO,larmO,rarmO,legsO;
 	private Image hp1, hp2;
 	private Color hpverde;
 	private GameObject[] respawns;
-	private GameObject startRobot;
+	private GameObject startRobot,serverRobot;
 
 	public override void OnStartLocalPlayer() {
-		respawns = GameObject.FindGameObjectsWithTag ("Robot");
-		startRobot = respawns[respawns.Length-1];
-		GameObject imageHp1 = GameObject.FindGameObjectWithTag("Hp1");
-		//HEAD
-		string robotHeadPath = "Ocealynde"; // Take from data base active robot
-		GameObject robotHead = Instantiate(Resources.Load("Robot/"+robotHeadPath+"/Head", typeof(GameObject))) as GameObject;
-		robotHead.transform.parent = startRobot.transform;
-		//BODY
-		string robotBodyPath = "Ocealynde"; // Take from data base active robot
-		GameObject robotBody = Instantiate(Resources.Load("Robot/"+robotBodyPath+"/Body", typeof(GameObject))) as GameObject;
-		robotBody.transform.parent = startRobot.transform;
-		//LEFT
-		string robotLeftPath = "Ocealynde"; // Take from data base active robot
-		GameObject robotLeft = Instantiate(Resources.Load("Robot/"+robotLeftPath+"/Left", typeof(GameObject))) as GameObject;
-		robotLeft.transform.parent = startRobot.transform;
-		//RIGHT
-		string robotRightPath = "Ocealynde"; // Take from data base active robot
-		GameObject robotRight = Instantiate(Resources.Load("Robot/"+robotRightPath+"/Right", typeof(GameObject))) as GameObject;
-		robotRight.transform.parent = startRobot.transform;
-		//LEGS
-		string robotLegsPath = "Ocealynde"; // Take from data base active robot
-		GameObject robotLegs = Instantiate(Resources.Load("Robot/"+robotLegsPath+"/Legs", typeof(GameObject))) as GameObject;
-		robotLegs.transform.parent = startRobot.transform;
-
-		anHead = robotHead.GetComponent<Animator> ();
-		anBody = robotBody.GetComponent<Animator> ();
-		anLarm = robotLeft.GetComponent<Animator> ();
-		anRarm = robotRight.GetComponent<Animator> ();
-		anLegs = robotLegs.GetComponent<Animator> ();
-		joystick= FindObjectOfType<Joystick>();		
-		hp1 = imageHp1.GetComponent<Image> ();
-		xAngles = 180;
-		yAngles = 0;
-		zAngles = 0;
-		jumps = 2;
-		attacks = 0;
-		canJump = true;
-		rb = startRobot.GetComponent<Rigidbody> ();
-		tr = startRobot.GetComponent<Transform>();
-		hpverde = hp1.color;startRobot.name = "RobotLocal";
-		//Debug.Log (isClient);
+		
 		Debug.Log("OnStartLocalPlayer");
 	}
 
 	public override void OnStartServer() {
-
+	}
+	public override void OnStartClient(){
 		respawns = GameObject.FindGameObjectsWithTag("Robot");
 		Debug.Log (respawns.Length);
-		if (respawns.Length>1) {
+		if (respawns.Length > 1) {
 			//Conecto un cliente
-			Debug.Log("Se conecto un cliente");
-			//Aquí se envia las partes del robot del host al cliente.
+			Debug.Log ("Se conecto un cliente");
+			serverRobot = respawns [respawns.Length - 2];
+			GameObject imageHp2 = GameObject.FindGameObjectWithTag ("Hp2");
+			//HEAD
+			string robotHeadPath = "Groundbull"; // Take from data base active robot
+			GameObject robotHead = Instantiate (Resources.Load ("Robot/" + robotHeadPath + "/Head", typeof(GameObject))) as GameObject;
+			robotHead.transform.parent = serverRobot.transform;
+			//BODY
+			string robotBodyPath = "Groundbull"; // Take from data base active robot
+			GameObject robotBody = Instantiate (Resources.Load ("Robot/" + robotBodyPath + "/Body", typeof(GameObject))) as GameObject;
+			robotBody.transform.parent = serverRobot.transform;
+			//LEFT
+			string robotLeftPath = "Groundbull"; // Take from data base active robot
+			GameObject robotLeft = Instantiate (Resources.Load ("Robot/" + robotLeftPath + "/Left", typeof(GameObject))) as GameObject;
+			robotLeft.transform.parent = serverRobot.transform;
+			//RIGHT
+			string robotRightPath = "Groundbull"; // Take from data base active robot
+			GameObject robotRight = Instantiate (Resources.Load ("Robot/" + robotRightPath + "/Right", typeof(GameObject))) as GameObject;
+			robotRight.transform.parent = serverRobot.transform;
+			//LEGS
+			string robotLegsPath = "Groundbull"; // Take from data base active robot
+			GameObject robotLegs = Instantiate (Resources.Load ("Robot/" + robotLegsPath + "/Legs", typeof(GameObject))) as GameObject;
+			robotLegs.transform.parent = serverRobot.transform;
+			//Aquí se envia las partes del robot del host al cliente.				
+			anHead = robotHead.GetComponent<Animator> ();
+			anBody = robotBody.GetComponent<Animator> ();
+			anLarm = robotLeft.GetComponent<Animator> ();
+			anRarm = robotRight.GetComponent<Animator> ();
+			anLegs = robotLegs.GetComponent<Animator> ();
+			hp2 = imageHp2.GetComponent<Image> ();
+			rb = serverRobot.GetComponent<Rigidbody> ();
+			tr = serverRobot.GetComponent<Transform>();
+			joystick= FindObjectOfType<Joystick>();		
+			hpverde = hp2.color;
+			serverRobot.name = "RobotLocal2";
+			Debug.Log("Player 2");
+		} 
+		else 
+		{
+			startRobot = respawns[respawns.Length-1];
+			GameObject imageHp1 = GameObject.FindGameObjectWithTag("Hp1");
+			//HEAD
+			string robotHeadPath = "Ocealynde"; // Take from data base active robot
+			GameObject robotHead = Instantiate(Resources.Load("Robot/"+robotHeadPath+"/Head", typeof(GameObject))) as GameObject;
+			robotHead.transform.parent = startRobot.transform;
+			//BODY
+			string robotBodyPath = "Ocealynde"; // Take from data base active robot
+			GameObject robotBody = Instantiate(Resources.Load("Robot/"+robotBodyPath+"/Body", typeof(GameObject))) as GameObject;
+			robotBody.transform.parent = startRobot.transform;
+			//LEFT
+			string robotLeftPath = "Ocealynde"; // Take from data base active robot
+			GameObject robotLeft = Instantiate(Resources.Load("Robot/"+robotLeftPath+"/Left", typeof(GameObject))) as GameObject;
+			robotLeft.transform.parent = startRobot.transform;
+			//RIGHT
+			string robotRightPath = "Ocealynde"; // Take from data base active robot
+			GameObject robotRight = Instantiate(Resources.Load("Robot/"+robotRightPath+"/Right", typeof(GameObject))) as GameObject;
+			robotRight.transform.parent = startRobot.transform;
+			//LEGS
+			string robotLegsPath = "Ocealynde"; // Take from data base active robot
+			GameObject robotLegs = Instantiate(Resources.Load("Robot/"+robotLegsPath+"/Legs", typeof(GameObject))) as GameObject;
+			robotLegs.transform.parent = startRobot.transform;
 
+			anHead = robotHead.GetComponent<Animator> ();
+			anBody = robotBody.GetComponent<Animator> ();
+			anLarm = robotLeft.GetComponent<Animator> ();
+			anRarm = robotRight.GetComponent<Animator> ();
+			anLegs = robotLegs.GetComponent<Animator> ();
+			joystick= FindObjectOfType<Joystick>();		
+			hp1 = imageHp1.GetComponent<Image> ();
+			xAngles = 180;
+			yAngles = 0;
+			zAngles = 0;
+			jumps = 2;
+			attacks = 0;
+			canJump = true;
+			rb = startRobot.GetComponent<Rigidbody> ();
+			tr = startRobot.GetComponent<Transform>();
+			hpverde = hp1.color;
+			startRobot.name = "RobotLocal";
+			Debug.Log("Player 1");
 		}
 
 	}
@@ -91,8 +130,7 @@ public class RobotMovement : NetworkBehaviour {
 			return;
 		}
 
-		var rigidbody = GetComponent<Rigidbody> ();
-		rigidbody.velocity = new Vector2 (joystick.Horizontal*10f,rigidbody.velocity.y);
+		rb.velocity = new Vector2 (joystick.Horizontal*10f,rb.velocity.y);
 		if (joystick.Vertical > .75) {//Brincar
 			anHead.SetBool("Down", false);
 			anBody.SetBool("Down", false);
@@ -133,7 +171,7 @@ public class RobotMovement : NetworkBehaviour {
 			anLarm.SetBool("Down", true);
 			anRarm.SetBool("Down", true);
 			anLegs.SetBool("Down", true);
-			rigidbody.velocity = new Vector2 (0f,rigidbody.velocity.y);
+			rb.velocity = new Vector2 (0f,rb.velocity.y);
 			takedamage (1);
 		}
 		else {
@@ -150,10 +188,10 @@ public class RobotMovement : NetworkBehaviour {
 
 	public void hpBarChange()
 	{
-		float ratio = hp / maxHp; 
-		if (hp < 20)
+		float ratio = health1/ maxhealth1; 
+		if (health1< 20)
 			hp1.color = Color.red;
-		else if (hp < 50)
+		else if (health1< 50)
 			hp1.color = Color.yellow;
 		else
 			hp1.color = hpverde;
@@ -162,17 +200,17 @@ public class RobotMovement : NetworkBehaviour {
 
 	public void takedamage(float damage)
 	{
-		hp -= damage;
-		if (hp < 0)
-			hp = 0;
+		health1-= damage;
+		if (health1< 0)
+			health1= 0;
 		hpBarChange ();
 	}
 
 	public void healdamage(float damage)
 	{
-		hp += damage;
-		if (hp > 100)
-			hp = 100;
+		health1+= damage;
+		if (health1> 100)
+			health1= 100;
 		hpBarChange ();
 	}
 

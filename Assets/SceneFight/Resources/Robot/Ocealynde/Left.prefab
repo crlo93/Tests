@@ -628,24 +628,24 @@ MonoBehaviour:
   m_SceneId:
     m_Value: 0
   m_AssetId:
-    i0: 0
-    i1: 0
-    i2: 0
-    i3: 0
-    i4: 0
-    i5: 0
-    i6: 0
-    i7: 0
-    i8: 0
-    i9: 0
-    i10: 0
-    i11: 0
-    i12: 0
-    i13: 0
-    i14: 0
-    i15: 0
+    i0: 201
+    i1: 123
+    i2: 147
+    i3: 36
+    i4: 197
+    i5: 117
+    i6: 182
+    i7: 180
+    i8: 120
+    i9: 104
+    i10: 224
+    i11: 106
+    i12: 126
+    i13: 4
+    i14: 58
+    i15: 21
   m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
+  m_LocalPlayerAuthority: 1
 --- !u!137 &137959161356539634
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
