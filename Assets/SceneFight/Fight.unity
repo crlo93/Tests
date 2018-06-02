@@ -282,7 +282,7 @@ GameObject:
   - component: {fileID: 263058984}
   m_Layer: 5
   m_Name: HpBar1
-  m_TagString: Hp1
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1419,6 +1419,10 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1150862597824026, guid: 81da05900cf327d45b0f3656b476111d, type: 2}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 81da05900cf327d45b0f3656b476111d, type: 2}
