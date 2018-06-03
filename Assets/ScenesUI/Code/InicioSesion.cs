@@ -9,6 +9,14 @@ public class InicioSesion : MonoBehaviour {
 	public Text nickName;
 	public Text password;
 
+	public void Start() {
+		int id = PlayerPrefs.GetInt("id", 0);
+		if (id!=0) {
+			MenuPrincipal mP = new MenuPrincipal();
+			mP.Mapa();
+		}
+	}
+
 	public void login() {
 
 		Debug.Log(nickName.text);

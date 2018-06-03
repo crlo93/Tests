@@ -7,4 +7,6 @@ Unity:
       |-Version:1.3
 
 
-## Suban de nuevo sus archivos WEB de "api" y "ws" al FTP y añadanlos al "git" también ##
+## Suban de nuevo sus archivos
+  WEB de "api" y "ws" al FTP
+  añadanlos primero al "git"!!! ##

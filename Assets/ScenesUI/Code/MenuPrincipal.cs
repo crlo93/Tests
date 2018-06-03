@@ -45,6 +45,10 @@ public class MenuPrincipal : MonoBehaviour {
     SceneManager.LoadScene("SceneMap/MapMaster");
   }
 
+  public void completeFight() {
+    SceneManager.LoadScene("SceneFight/Fight");
+  }
+
   public void ArmarHead() {
     SceneManager.LoadScene("ArmarHead");
   }

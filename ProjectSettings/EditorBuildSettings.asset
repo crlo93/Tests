@@ -29,4 +29,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/SceneMap/MapMaster.unity
     guid: 5a8a2ead4d22f984e96c593d575c34f1
+  - enabled: 1
+    path: Assets/ScenesUI/EditarPerfil.unity
+    guid: 358ae75c6f15419439b90194414d23c3
   m_configObjects: {}
