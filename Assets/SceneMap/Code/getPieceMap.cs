@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Boomlagoon.JSON;
@@ -36,7 +36,7 @@ public class getPieceMap : MonoBehaviour {
 		Debug.Log ("getGPS START");
 		// First, check if user has location service enabled
 		if (!Input.location.isEnabledByUser)
-			yield break;
+		yield break;
 
 		// Start service before querying location
 		Input.location.Start();
@@ -103,8 +103,8 @@ public class getPieceMap : MonoBehaviour {
 					cube.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezePositionY;
 					cube.transform.position = new Vector3(lt, 1, ln);
 
-					Debug.Log(data ["latitud"].Str+" "+lt);
-					Debug.Log(data ["longitud"].Str+" "+ln);
+					// Debug.Log(data ["latitud"].Str+" "+lt);
+					// Debug.Log(data ["longitud"].Str+" "+ln);
 					// Debug.Log (lt);
 					// Debug.Log (ln);
 				}
@@ -114,13 +114,6 @@ public class getPieceMap : MonoBehaviour {
 			Debug.Log(www.error);
 		}
 		Debug.Log ("getDataEnumerator END");
-	}
-
-	void OnCollisionEnter(Collision col){
-		if (col.gameObject.name == "Cube"){
-			Debug.Log (col);
-			//AddPiece to User
-		}
 	}
 
 }

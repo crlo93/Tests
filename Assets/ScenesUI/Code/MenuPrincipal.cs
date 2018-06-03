@@ -5,69 +5,68 @@ using UnityEngine.SceneManagement;
 
 public class MenuPrincipal : MonoBehaviour {
 
-    public void IrPerfil() {
-        SceneManager.LoadScene("MiPerfil");
-    }
+  public void IrPerfil() {
+    SceneManager.LoadScene("MiPerfil");
+  }
 
-    public void Armar() {
-        SceneManager.LoadScene("ArmarRobot");
+  public void Armar() {
+    SceneManager.LoadScene("ArmarRobot");
+  }
 
-    }
+  public void Piezas() {
+    SceneManager.LoadScene("Inventario");
+  }
 
-    public void Piezas()
-    {
-        SceneManager.LoadScene("Inventario");
+  public void Jugar() {
+    SceneManager.LoadScene("Pelea");
+  }
 
-    }
+  public void Login() {
+    SceneManager.LoadScene("InicioSesion");
+  }
 
-    public void Jugar() {
-        SceneManager.LoadScene("Pelea");
-    }
+  public void Registro() {
+    SceneManager.LoadScene("Registro");
+  }
 
-	public void Login() {
+  public void StartToLogin() {
+    SceneManager.LoadScene("ScenesUI/InicioSesion");
+  }
 
-		SceneManager.LoadScene("InicioSesion");
-	}
-	public void Registro(){
-		SceneManager.LoadScene("Registro");
+  public void StartToRegistro() {
+    SceneManager.LoadScene("ScenesUI/Registro");
+  }
 
+  public void EditarPerfil() {
+    SceneManager.LoadScene("EditarPerfil");
+  }
 
-	}
-	public void EditarPerfil() {
-		SceneManager.LoadScene("EditarPerfil");
-	}
+  public void Mapa() {
+    SceneManager.LoadScene("SceneMap/MapMaster");
+  }
 
-	public void Mapa() {
-		SceneManager.LoadScene("PantallaP");
-	}
+  public void completeFight() {
+    SceneManager.LoadScene("SceneFight/Fight");
+  }
 
-    public void ArmarHead() {
-        SceneManager.LoadScene("ArmarHead");
-    
-    }
+  public void ArmarHead() {
+    SceneManager.LoadScene("ArmarHead");
+  }
 
-    public void ArmarBody()
-    {
-        SceneManager.LoadScene("ArmarBody");
+  public void ArmarBody() {
+    SceneManager.LoadScene("ArmarBody");
+  }
 
-    }
+  public void ArmarArmL() {
+    SceneManager.LoadScene("ArmarArmL");
+  }
 
-    public void ArmarArmL()
-    {
-        SceneManager.LoadScene("ArmarArmL");
+  public void ArmarArmR() {
+    SceneManager.LoadScene("ArmarArmR");
+  }
 
-    }
+  public void ArmarLegs() {
+    SceneManager.LoadScene("ArmarLegs");
+  }
 
-    public void ArmarArmR()
-    {
-        SceneManager.LoadScene("ArmarArmR");
-
-    }
-
-    public void ArmarLegs()
-    {
-        SceneManager.LoadScene("ArmarLegs");
-
-    }
-   
 }

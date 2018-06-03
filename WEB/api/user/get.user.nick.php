@@ -3,7 +3,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-if (isset($_GET['id'])) {
+if (isset($_POST['id'])) {
   require_once '../../ws/get.php';
 
   $Get = new Get();
@@ -12,7 +12,7 @@ if (isset($_GET['id'])) {
 
   $Get->addColumn('usr_nick');
 
-  $Get->setWheres('usr_id = '.$_GET['id']);
+  $Get->setWheres('usr_id = '.$_POST['id']);
 
   $Get->executeQuery();
 
