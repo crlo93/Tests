@@ -1,9 +1,7 @@
 fileFormatVersion: 2
 guid: 51ee1be6618cb254486a331cd59c976e
-timeCreated: 1520545849
-licenseType: Free
 ModelImporter:
-  serializedVersion: 21
+  serializedVersion: 22
   fileIDToRecycleName:
     100000: Armature
     100002: Bone
@@ -93,10 +91,73 @@ ModelImporter:
     13700002: Inst3D_RefRep_30_head
     13700004: Inst3D_RefRep_34__000
     13700006: Inst3D_RefRep_34__001
+    2186277476908879412: ImportLogs
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: head_Head_png__Blanco_metalico_jpg
+    second: {fileID: 2100000, guid: 64518ef44f36eb54f9448f00499164e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: head_Head_png__Dorado_metalico_jpg
+    second: {fileID: 2100000, guid: c75d1422644fbe64397d6ec7cc12cb80, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: head_Head_png__Head_png
+    second: {fileID: 2100000, guid: 193fa76ff269b2c479351413d573821c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: head_Head_png__azul_metalico_jpg
+    second: {fileID: 2100000, guid: 9a3faea1b25456a429743cfd40750c8e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: right_arm_Right_Arm___001__Blanco_metalico_jpg
+    second: {fileID: 2100000, guid: 64518ef44f36eb54f9448f00499164e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: right_arm_Right_Arm___001__Right_Arm__png_001
+    second: {fileID: 2100000, guid: 09b9e068993488d45bc89b49a8098c14, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: right_arm_Right_Arm___001__azul_metalico_jpg
+    second: {fileID: 2100000, guid: 9a3faea1b25456a429743cfd40750c8e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: right_arm_Right_Arm___002__Blanco_metalico_jpg
+    second: {fileID: 2100000, guid: 64518ef44f36eb54f9448f00499164e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: right_arm_Right_Arm___002__Right_Arm__png_002
+    second: {fileID: 2100000, guid: 09b9e068993488d45bc89b49a8098c14, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: right_arm_Right_Arm___002__azul_metalico_jpg
+    second: {fileID: 2100000, guid: 9a3faea1b25456a429743cfd40750c8e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: tail_Tail_png__Blanco_metalico_jpg
+    second: {fileID: 2100000, guid: 64518ef44f36eb54f9448f00499164e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: tail_Tail_png__azul_metalico_jpg
+    second: {fileID: 2100000, guid: 9a3faea1b25456a429743cfd40750c8e, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -109,6 +170,8 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -133,6 +196,8 @@ ModelImporter:
     optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
