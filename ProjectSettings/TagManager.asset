@@ -15,6 +15,7 @@ TagManager:
   - Hp1
   - Canvas
   - Hp2
+  - power
   layers:
   - Default
   - TransparentFX

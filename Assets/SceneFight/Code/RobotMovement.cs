@@ -10,15 +10,17 @@ public class RobotMovement : NetworkBehaviour {
 	private float jump = 30f;
 	private float forceJump = 0f;
 	private float forceDash = 0f;
-	public float health1= 100;
-	private float maxhealth1= 100;
-	public float health2= 100;
-	private float maxhealth2= 100;
+	public float Health= 100;
+	private float maxhealth= 100;
 	private bool canJump;
 	private int jumps;
 	private int attacks;
-	public float xAngles, yAngles, zAngles;
+	private int defense=1;
+	private float xAngles, yAngles, zAngles;
+	public GameObject powerPrefab;
+	private Transform powerTr;
 	protected Joystick joystick;
+	protected Button btnAction,btnDefense;
 	private Rigidbody rb;
 	private Transform tr;
 	private Animator anHead,anBody,anLarm,anRarm,anLegs; 
@@ -29,97 +31,64 @@ public class RobotMovement : NetworkBehaviour {
 	private GameObject startRobot,serverRobot;
 
 	public override void OnStartLocalPlayer() {
-		
-		Debug.Log("OnStartLocalPlayer");
 	}
 
 	public override void OnStartServer() {
 	}
 	public override void OnStartClient(){
 		respawns = GameObject.FindGameObjectsWithTag("Robot");
-		Debug.Log (respawns.Length);
+		startRobot = respawns[respawns.Length-1];
+		GameObject imageHp1 = GameObject.FindGameObjectWithTag("Hp1");
+		//HEAD
+		string robotHeadPath = "Ocealynde"; // Take from data base active robot
+		GameObject robotHead = Instantiate(Resources.Load("Robot/"+robotHeadPath+"/Head", typeof(GameObject))) as GameObject;
+		robotHead.transform.parent = startRobot.transform;
+		//BODY
+		string robotBodyPath = "Ocealynde"; // Take from data base active robot
+		GameObject robotBody = Instantiate(Resources.Load("Robot/"+robotBodyPath+"/Body", typeof(GameObject))) as GameObject;
+		robotBody.transform.parent = startRobot.transform;
+		//LEFT
+		string robotLeftPath = "Ocealynde"; // Take from data base active robot
+		GameObject robotLeft = Instantiate(Resources.Load("Robot/"+robotLeftPath+"/Left", typeof(GameObject))) as GameObject;
+		robotLeft.transform.parent = startRobot.transform;
+		//RIGHT
+		string robotRightPath = "Ocealynde"; // Take from data base active robot
+		GameObject robotRight = Instantiate(Resources.Load("Robot/"+robotRightPath+"/Right", typeof(GameObject))) as GameObject;
+		robotRight.transform.parent = startRobot.transform;
+		//LEGS
+		string robotLegsPath = "Ocealynde"; // Take from data base active robot
+		GameObject robotLegs = Instantiate(Resources.Load("Robot/"+robotLegsPath+"/Legs", typeof(GameObject))) as GameObject;
+		robotLegs.transform.parent = startRobot.transform;
+		btnAction = GameObject.FindGameObjectWithTag("btnaction").GetComponent<Button>();
+		btnDefense = GameObject.FindGameObjectWithTag("btndefense").GetComponent<Button>();
+		btnAction.onClick.AddListener(attack);
+		btnDefense.onClick.AddListener(defend);
+		anHead = robotHead.GetComponent<Animator> ();
+		anBody = robotBody.GetComponent<Animator> ();
+		anLarm = robotLeft.GetComponent<Animator> ();
+		anRarm = robotRight.GetComponent<Animator> ();
+		anLegs = robotLegs.GetComponent<Animator> ();
+		joystick= FindObjectOfType<Joystick>();		
+		hp1 = imageHp1.GetComponent<Image> ();
+		xAngles = 180;
+		yAngles = 0;
+		zAngles = 0;
+		jumps = 2;
+		attacks = 0;
+		canJump = true;
+		rb = startRobot.GetComponent<Rigidbody> ();
+		tr = startRobot.GetComponent<Transform>();
+		hpverde = hp1.color;		
 		if (respawns.Length > 1) {
 			//Conecto un cliente
-			Debug.Log ("Se conecto un cliente");
-			serverRobot = respawns [respawns.Length - 2];
-			GameObject imageHp2 = GameObject.FindGameObjectWithTag ("Hp2");
-			//HEAD
-			string robotHeadPath = "Groundbull"; // Take from data base active robot
-			GameObject robotHead = Instantiate (Resources.Load ("Robot/" + robotHeadPath + "/Head", typeof(GameObject))) as GameObject;
-			robotHead.transform.parent = serverRobot.transform;
-			//BODY
-			string robotBodyPath = "Groundbull"; // Take from data base active robot
-			GameObject robotBody = Instantiate (Resources.Load ("Robot/" + robotBodyPath + "/Body", typeof(GameObject))) as GameObject;
-			robotBody.transform.parent = serverRobot.transform;
-			//LEFT
-			string robotLeftPath = "Groundbull"; // Take from data base active robot
-			GameObject robotLeft = Instantiate (Resources.Load ("Robot/" + robotLeftPath + "/Left", typeof(GameObject))) as GameObject;
-			robotLeft.transform.parent = serverRobot.transform;
-			//RIGHT
-			string robotRightPath = "Groundbull"; // Take from data base active robot
-			GameObject robotRight = Instantiate (Resources.Load ("Robot/" + robotRightPath + "/Right", typeof(GameObject))) as GameObject;
-			robotRight.transform.parent = serverRobot.transform;
-			//LEGS
-			string robotLegsPath = "Groundbull"; // Take from data base active robot
-			GameObject robotLegs = Instantiate (Resources.Load ("Robot/" + robotLegsPath + "/Legs", typeof(GameObject))) as GameObject;
-			robotLegs.transform.parent = serverRobot.transform;
-			//Aquí se envia las partes del robot del host al cliente.				
-			anHead = robotHead.GetComponent<Animator> ();
-			anBody = robotBody.GetComponent<Animator> ();
-			anLarm = robotLeft.GetComponent<Animator> ();
-			anRarm = robotRight.GetComponent<Animator> ();
-			anLegs = robotLegs.GetComponent<Animator> ();
-			hp2 = imageHp2.GetComponent<Image> ();
-			rb = serverRobot.GetComponent<Rigidbody> ();
-			tr = serverRobot.GetComponent<Transform>();
-			joystick= FindObjectOfType<Joystick>();		
-			hpverde = hp2.color;
-			serverRobot.name = "RobotLocal2";
-			Debug.Log("Player 2");
+			Debug.Log ("Se conecto el jugador 2");	
+			startRobot.name = "RobotLocal2";
 		} 
 		else 
 		{
-			startRobot = respawns[respawns.Length-1];
-			GameObject imageHp1 = GameObject.FindGameObjectWithTag("Hp1");
-			//HEAD
-			string robotHeadPath = "Ocealynde"; // Take from data base active robot
-			GameObject robotHead = Instantiate(Resources.Load("Robot/"+robotHeadPath+"/Head", typeof(GameObject))) as GameObject;
-			robotHead.transform.parent = startRobot.transform;
-			//BODY
-			string robotBodyPath = "Ocealynde"; // Take from data base active robot
-			GameObject robotBody = Instantiate(Resources.Load("Robot/"+robotBodyPath+"/Body", typeof(GameObject))) as GameObject;
-			robotBody.transform.parent = startRobot.transform;
-			//LEFT
-			string robotLeftPath = "Ocealynde"; // Take from data base active robot
-			GameObject robotLeft = Instantiate(Resources.Load("Robot/"+robotLeftPath+"/Left", typeof(GameObject))) as GameObject;
-			robotLeft.transform.parent = startRobot.transform;
-			//RIGHT
-			string robotRightPath = "Ocealynde"; // Take from data base active robot
-			GameObject robotRight = Instantiate(Resources.Load("Robot/"+robotRightPath+"/Right", typeof(GameObject))) as GameObject;
-			robotRight.transform.parent = startRobot.transform;
-			//LEGS
-			string robotLegsPath = "Ocealynde"; // Take from data base active robot
-			GameObject robotLegs = Instantiate(Resources.Load("Robot/"+robotLegsPath+"/Legs", typeof(GameObject))) as GameObject;
-			robotLegs.transform.parent = startRobot.transform;
 
-			anHead = robotHead.GetComponent<Animator> ();
-			anBody = robotBody.GetComponent<Animator> ();
-			anLarm = robotLeft.GetComponent<Animator> ();
-			anRarm = robotRight.GetComponent<Animator> ();
-			anLegs = robotLegs.GetComponent<Animator> ();
-			joystick= FindObjectOfType<Joystick>();		
-			hp1 = imageHp1.GetComponent<Image> ();
-			xAngles = 180;
-			yAngles = 0;
-			zAngles = 0;
-			jumps = 2;
-			attacks = 0;
-			canJump = true;
-			rb = startRobot.GetComponent<Rigidbody> ();
-			tr = startRobot.GetComponent<Transform>();
-			hpverde = hp1.color;
+			Debug.Log ("Se conecto el jugador 1");
 			startRobot.name = "RobotLocal";
-			Debug.Log("Player 1");
 		}
 
 	}
@@ -129,7 +98,6 @@ public class RobotMovement : NetworkBehaviour {
 		{
 			return;
 		}
-
 		rb.velocity = new Vector2 (joystick.Horizontal*10f,rb.velocity.y);
 		if (joystick.Vertical > .75) {//Brincar
 			anHead.SetBool("Down", false);
@@ -172,7 +140,6 @@ public class RobotMovement : NetworkBehaviour {
 			anRarm.SetBool("Down", true);
 			anLegs.SetBool("Down", true);
 			rb.velocity = new Vector2 (0f,rb.velocity.y);
-			takedamage (1);
 		}
 		else {
 			anHead.SetBool("Down", false);
@@ -188,10 +155,13 @@ public class RobotMovement : NetworkBehaviour {
 
 	public void hpBarChange()
 	{
-		float ratio = health1/ maxhealth1; 
-		if (health1< 20)
+
+		float ratio = Health/ maxhealth; 
+		if (Health< 1)
+			Destroy(gameObject);
+		else if (Health< 20)
 			hp1.color = Color.red;
-		else if (health1< 50)
+		else if (Health< 50)
 			hp1.color = Color.yellow;
 		else
 			hp1.color = hpverde;
@@ -200,26 +170,38 @@ public class RobotMovement : NetworkBehaviour {
 
 	public void takedamage(float damage)
 	{
-		health1-= damage;
-		if (health1< 0)
-			health1= 0;
+		Health-= damage;
+		if (Health< 0)
+			Health= 0;
 		hpBarChange ();
 	}
 
 	public void healdamage(float damage)
 	{
-		health1+= damage;
-		if (health1> 100)
-			health1= 100;
+		Health+= damage;
+		if (Health> 100)
+			Health= 100;
 		hpBarChange ();
 	}
 
 	public void attack() 
-	{
+	{	
+		defense=1;	
+		if (attacks == 0) {
+			attacks++;
+		} 
+		else if (attacks == 1) {
+			attacks++;
+		} 
+		else {
+			CmdPowerShoot();
+			attacks = 0;
+		}
 	}
 
 	public void defend()
 	{
+		defense=10;
 		Vector3 movement = new Vector3 (0f, 0f, 0f);
 		rb.AddForce(movement * speed);
 	}
@@ -231,38 +213,66 @@ public class RobotMovement : NetworkBehaviour {
 		anLarm.SetBool("Down", false);
 		anRarm.SetBool("Down", false);
 		anLegs.SetBool("Down", false);
-		healdamage (1);
 		forceJump = 0f;
 		if (canJump && jumps>0) { // To Jump
 			rb.velocity = Vector3.zero;
 			forceJump = jump;
 			jumps--;
 			if (jumps == 0)
+			{
 				forceJump += jump/2;
+			}
 			anLegs.SetTrigger("Jump");
 		}
 		Vector3 movement = new Vector3 (forceDash*Time.deltaTime, forceJump, 0f);
 		rb.AddForce(movement * speed);
 	}
 
-	void OnCollisionEnter (Collision collision) {
-		foreach (ContactPoint contact in collision.contacts) {
-			//rb.angularVelocity = Vector3.zero;
-			if (contact.otherCollider.name == "Piso") {
-				canJump = true;
-				jumps = 2;
-			} else if (jumps < 1) {
-				canJump = false;
-				jumps = 0;
-			}else 
-			{
-				canJump = true;
-				jumps = 1;
+	void OnCollisionEnter (Collision collision) {		
+		if (isLocalPlayer)
+		{
+			foreach (ContactPoint contact in collision.contacts) {
+				//rb.angularVelocity = Vector3.zero;
+				if (contact.otherCollider.name == "Piso") {
+					canJump = true;
+					jumps = 2;
+				} else if (jumps < 1) {
+					canJump = false;
+					jumps = 0;
+				}else 
+				{
+					canJump = true;
+					jumps = 1;
+				}
+			}
+		}
+		else
+		{
+			int haydaño=1;
+			foreach (ContactPoint contact in collision.contacts) {
+				//rb.angularVelocity = Vector3.zero;
+				if (contact.otherCollider.name == "Piso") 
+				{
+
+				}else 
+				{
+					haydaño=0;
+				}
 			}
 		}
 	}
 
-	void OnCollisionExit (Collision collision) {
-		
+	[Command]
+	void CmdPowerShoot()
+	{
+		GameObject power = (GameObject) Instantiate(powerPrefab as GameObject,tr.position,tr.rotation);
+		power.GetComponent<Transform>().Rotate (0,270,0);
+		power.GetComponent<Rigidbody>().velocity=power.transform.forward * 20.0f;
+		//spawn the bullet on the clients
+		NetworkServer.Spawn(power);
+		Destroy(power,1f);
+	}
+
+	void OnCollisionExit (Collision collision) {		
 	}
 }
