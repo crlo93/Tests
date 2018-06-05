@@ -10,7 +10,7 @@ public class RobotMovement : NetworkBehaviour {
 	private float jump = 30f;
 	private float forceJump = 0f;
 	private float forceDash = 0f;
-	public float Health= 100;
+	[SyncVar (hook="hpBarChange")] public float Health= 100;
 	private float maxhealth= 100;
 	private bool canJump;
 	private int jumps;
@@ -23,7 +23,8 @@ public class RobotMovement : NetworkBehaviour {
 	protected Button btnAction,btnDefense;
 	private Rigidbody rb;
 	private Transform tr;
-	private Animator anHead,anBody,anLarm,anRarm,anLegs; 
+	private Animator anHead,anBody,anLarm,anRarm,anLegs;
+	private Animator anHead1,anBody1,anLarm1,anRarm1,anLegs1; 
 	private GameObject head,body,larm,rarm,legs,headO,bodyO,larmO,rarmO,legsO;
 	private Image hp1, hp2;
 	private Color hpverde;
@@ -83,11 +84,39 @@ public class RobotMovement : NetworkBehaviour {
 		if (respawns.Length > 1) {
 			//Conecto un cliente
 			Debug.Log ("Se conecto el jugador 2");	
-			startRobot.name = "RobotLocal2";
 			hpbars = GameObject.FindGameObjectsWithTag("HpBar");
 			Debug.Log (hpbars.Length);	
 			HpBarPlayer2=hpbars[hpbars.Length-1];
 			HpBarPlayer2.transform.position=new Vector3(1000,750,0);
+			if(isServer)
+				return;
+			serverRobot = respawns[respawns.Length-2];
+			serverRobot.name = "RobotLocal2";
+			//HEAD
+			string robotHeadPath1 = "Groundbull"; // Take from data base active robot
+			GameObject robotHead1 = Instantiate(Resources.Load("Robot/"+robotHeadPath1+"/Head", typeof(GameObject))) as GameObject;
+			robotHead1.transform.parent = serverRobot.transform;
+			//BODY
+			string robotBodyPath1 = "Groundbull"; // Take from data base active robot
+			GameObject robotBody1 = Instantiate(Resources.Load("Robot/"+robotBodyPath1+"/Body", typeof(GameObject))) as GameObject;
+			robotBody1.transform.parent = serverRobot.transform;
+			//LEFT
+			string robotLeftPath1 = "Groundbull"; // Take from data base active robot
+			GameObject robotLeft1 = Instantiate(Resources.Load("Robot/"+robotLeftPath1+"/Left", typeof(GameObject))) as GameObject;
+			robotLeft1.transform.parent = serverRobot.transform;
+			//RIGHT
+			string robotRightPath1 = "Groundbull"; // Take from data base active robot
+			GameObject robotRight1 = Instantiate(Resources.Load("Robot/"+robotRightPath1+"/Right", typeof(GameObject))) as GameObject;
+			robotRight1.transform.parent = serverRobot.transform;
+			//LEGS
+			string robotLegsPath1 = "Groundbull"; // Take from data base active robot
+			GameObject robotLegs1 = Instantiate(Resources.Load("Robot/"+robotLegsPath1+"/Legs", typeof(GameObject))) as GameObject;
+			robotLegs1.transform.parent = serverRobot.transform;
+			anHead1 = robotHead1.GetComponent<Animator> ();
+			anBody1 = robotBody1.GetComponent<Animator> ();
+			anLarm1 = robotLeft1.GetComponent<Animator> ();
+			anRarm1 = robotRight1.GetComponent<Animator> ();
+			anLegs1 = robotLegs1.GetComponent<Animator> ();
 		} 
 		else 
 		{
@@ -158,15 +187,14 @@ public class RobotMovement : NetworkBehaviour {
 		}
 	}
 
-	public void hpBarChange()
+	public void hpBarChange(float health)
 	{
-
-		float ratio = Health/ maxhealth; 
-		if (Health< 1)
+		float ratio = health/ maxhealth; 
+		if (health< 1)
 			Destroy(gameObject);
-		else if (Health< 20)
+		else if (health< 20)
 			hp1.color = Color.red;
-		else if (Health< 50)
+		else if (health< 50)
 			hp1.color = Color.yellow;
 		else
 			hp1.color = hpverde;
@@ -180,7 +208,7 @@ public class RobotMovement : NetworkBehaviour {
 		Health-= damage;
 		if (Health< 0)
 			Health= 0;
-		hpBarChange ();
+		hpBarChange (Health);
 	}
 
 	public void healdamage(float damage)
@@ -188,7 +216,7 @@ public class RobotMovement : NetworkBehaviour {
 		Health+= damage;
 		if (Health> 100)
 			Health= 100;
-		hpBarChange ();
+		hpBarChange (Health);
 	}
 
 	public void attack() 
@@ -201,7 +229,7 @@ public class RobotMovement : NetworkBehaviour {
 			attacks++;
 		} 
 		else {
-			CmdPowerShoot();
+			// CmdPowerShoot();
 			attacks = 0;
 		}
 	}
@@ -248,6 +276,7 @@ public class RobotMovement : NetworkBehaviour {
 					jumps = 0;
 				}else 
 				{
+					Debug.Log(contact.otherCollider.name);
 					canJump = true;
 					jumps = 1;
 				}
