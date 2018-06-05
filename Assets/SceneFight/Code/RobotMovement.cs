@@ -28,7 +28,8 @@ public class RobotMovement : NetworkBehaviour {
 	private Image hp1, hp2;
 	private Color hpverde;
 	private GameObject[] respawns;
-	private GameObject startRobot,serverRobot;
+	private GameObject[] hpbars;
+	private GameObject startRobot,serverRobot,HpBarPlayer2;
 
 	public override void OnStartLocalPlayer() {
 	}
@@ -83,6 +84,10 @@ public class RobotMovement : NetworkBehaviour {
 			//Conecto un cliente
 			Debug.Log ("Se conecto el jugador 2");	
 			startRobot.name = "RobotLocal2";
+			hpbars = GameObject.FindGameObjectsWithTag("HpBar");
+			Debug.Log (hpbars.Length);	
+			HpBarPlayer2=hpbars[hpbars.Length-1];
+			HpBarPlayer2.transform.position=new Vector3(1000,750,0);
 		} 
 		else 
 		{
@@ -170,6 +175,8 @@ public class RobotMovement : NetworkBehaviour {
 
 	public void takedamage(float damage)
 	{
+		if(!isServer)
+			return;
 		Health-= damage;
 		if (Health< 0)
 			Health= 0;
@@ -194,7 +201,7 @@ public class RobotMovement : NetworkBehaviour {
 			attacks++;
 		} 
 		else {
-			CmdPowerShoot();
+			// CmdPowerShoot();
 			attacks = 0;
 		}
 	}
