@@ -41,23 +41,23 @@ public class RobotMovement : NetworkBehaviour {
 		startRobot = respawns[respawns.Length-1];
 		GameObject imageHp1 = GameObject.FindGameObjectWithTag("Hp1");
 		//HEAD
-		string robotHeadPath = "Ocealynde"; // Take from data base active robot
+		string robotHeadPath = "Groundbull"; // Take from data base active robot
 		GameObject robotHead = Instantiate(Resources.Load("Robot/"+robotHeadPath+"/Head", typeof(GameObject))) as GameObject;
 		robotHead.transform.parent = startRobot.transform;
 		//BODY
-		string robotBodyPath = "Ocealynde"; // Take from data base active robot
+		string robotBodyPath = "Groundbull"; // Take from data base active robot
 		GameObject robotBody = Instantiate(Resources.Load("Robot/"+robotBodyPath+"/Body", typeof(GameObject))) as GameObject;
 		robotBody.transform.parent = startRobot.transform;
 		//LEFT
-		string robotLeftPath = "Ocealynde"; // Take from data base active robot
+		string robotLeftPath = "Groundbull"; // Take from data base active robot
 		GameObject robotLeft = Instantiate(Resources.Load("Robot/"+robotLeftPath+"/Left", typeof(GameObject))) as GameObject;
 		robotLeft.transform.parent = startRobot.transform;
 		//RIGHT
-		string robotRightPath = "Ocealynde"; // Take from data base active robot
+		string robotRightPath = "Groundbull"; // Take from data base active robot
 		GameObject robotRight = Instantiate(Resources.Load("Robot/"+robotRightPath+"/Right", typeof(GameObject))) as GameObject;
 		robotRight.transform.parent = startRobot.transform;
 		//LEGS
-		string robotLegsPath = "Ocealynde"; // Take from data base active robot
+		string robotLegsPath = "Groundbull"; // Take from data base active robot
 		GameObject robotLegs = Instantiate(Resources.Load("Robot/"+robotLegsPath+"/Legs", typeof(GameObject))) as GameObject;
 		robotLegs.transform.parent = startRobot.transform;
 		btnAction = GameObject.FindGameObjectWithTag("btnaction").GetComponent<Button>();
@@ -201,7 +201,7 @@ public class RobotMovement : NetworkBehaviour {
 			attacks++;
 		} 
 		else {
-			// CmdPowerShoot();
+			CmdPowerShoot();
 			attacks = 0;
 		}
 	}
@@ -272,7 +272,7 @@ public class RobotMovement : NetworkBehaviour {
 	[Command]
 	void CmdPowerShoot()
 	{
-		GameObject power = (GameObject) Instantiate(powerPrefab as GameObject,tr.position,tr.rotation);
+		GameObject power = (GameObject) Instantiate(powerPrefab as GameObject,new Vector3((tr.position.x-(xAngles/90)),tr.position.y,tr.position.z),tr.rotation);
 		power.GetComponent<Transform>().Rotate (0,270,0);
 		power.GetComponent<Rigidbody>().velocity=power.transform.forward * 20.0f;
 		//spawn the bullet on the clients

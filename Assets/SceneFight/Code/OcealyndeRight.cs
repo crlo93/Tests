@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 
-public class OcealyndeRight : MonoBehaviour {
+
+public class OcealyndeRight : NetworkBehaviour {
 
 	protected Animator anRarm;
 	protected Button btnAction,btnDefense;

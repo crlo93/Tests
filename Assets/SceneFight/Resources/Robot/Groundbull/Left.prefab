@@ -99,6 +99,7 @@ GameObject:
   - component: {fileID: 95357732878344454}
   - component: {fileID: 114429551799834204}
   - component: {fileID: 114732669206959382}
+  - component: {fileID: 114607362737175636}
   m_Layer: 0
   m_Name: Left
   m_TagString: Untagged
@@ -206,6 +207,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!95 &95357732878344454
 Animator:
   serializedVersion: 3
@@ -223,6 +225,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114429551799834204
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -255,6 +258,18 @@ MonoBehaviour:
     i15: 36
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
+--- !u!114 &114607362737175636
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1789296632895354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76cfcf3cee844b7409fff81f033a9c89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textBlock: {fileID: 0}
 --- !u!114 &114732669206959382
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -267,7 +282,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Animator: {fileID: 95357732878344454}
-  m_ParameterSendBits: 0
+  m_ParameterSendBits: 31
   param0: 
   param1: 
   param2: 
@@ -283,9 +298,11 @@ SkinnedMeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 39ff06f6581053e4281ebe890ec60fca, type: 2}
   - {fileID: 2100000, guid: 0a0c1620a01dfe940b8217c7691a75fd, type: 2}
@@ -300,6 +317,7 @@ SkinnedMeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5

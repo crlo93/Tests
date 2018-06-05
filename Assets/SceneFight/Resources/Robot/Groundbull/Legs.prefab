@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 95179249122243322}
   - component: {fileID: 114489762929564752}
   - component: {fileID: 114771688921087004}
+  - component: {fileID: 114824576814745922}
   m_Layer: 0
   m_Name: Legs
   m_TagString: Untagged
@@ -409,6 +410,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!95 &95261424042316588
 Animator:
   serializedVersion: 3
@@ -426,6 +428,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114489762929564752
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -470,13 +473,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Animator: {fileID: 95179249122243322}
-  m_ParameterSendBits: 0
+  m_ParameterSendBits: 31
   param0: 
   param1: 
   param2: 
   param3: 
   param4: 
   param5: 
+--- !u!114 &114824576814745922
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1502218714993136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08db2420ae2870146b53227aa4e5babd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textBlock: {fileID: 0}
 --- !u!137 &137374856821474080
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
@@ -486,9 +501,11 @@ SkinnedMeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 0a0c1620a01dfe940b8217c7691a75fd, type: 2}
   - {fileID: 2100000, guid: 39ff06f6581053e4281ebe890ec60fca, type: 2}
@@ -503,6 +520,7 @@ SkinnedMeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
