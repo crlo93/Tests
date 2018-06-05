@@ -88,35 +88,7 @@ public class RobotMovement : NetworkBehaviour {
 			Debug.Log (hpbars.Length);	
 			HpBarPlayer2=hpbars[hpbars.Length-1];
 			HpBarPlayer2.transform.position=new Vector3(1000,750,0);
-			if(isServer)
-				return;
-			serverRobot = respawns[respawns.Length-2];
-			serverRobot.name = "RobotLocal2";
-			//HEAD
-			string robotHeadPath1 = "Groundbull"; // Take from data base active robot
-			GameObject robotHead1 = Instantiate(Resources.Load("Robot/"+robotHeadPath1+"/Head", typeof(GameObject))) as GameObject;
-			robotHead1.transform.parent = serverRobot.transform;
-			//BODY
-			string robotBodyPath1 = "Groundbull"; // Take from data base active robot
-			GameObject robotBody1 = Instantiate(Resources.Load("Robot/"+robotBodyPath1+"/Body", typeof(GameObject))) as GameObject;
-			robotBody1.transform.parent = serverRobot.transform;
-			//LEFT
-			string robotLeftPath1 = "Groundbull"; // Take from data base active robot
-			GameObject robotLeft1 = Instantiate(Resources.Load("Robot/"+robotLeftPath1+"/Left", typeof(GameObject))) as GameObject;
-			robotLeft1.transform.parent = serverRobot.transform;
-			//RIGHT
-			string robotRightPath1 = "Groundbull"; // Take from data base active robot
-			GameObject robotRight1 = Instantiate(Resources.Load("Robot/"+robotRightPath1+"/Right", typeof(GameObject))) as GameObject;
-			robotRight1.transform.parent = serverRobot.transform;
-			//LEGS
-			string robotLegsPath1 = "Groundbull"; // Take from data base active robot
-			GameObject robotLegs1 = Instantiate(Resources.Load("Robot/"+robotLegsPath1+"/Legs", typeof(GameObject))) as GameObject;
-			robotLegs1.transform.parent = serverRobot.transform;
-			anHead1 = robotHead1.GetComponent<Animator> ();
-			anBody1 = robotBody1.GetComponent<Animator> ();
-			anLarm1 = robotLeft1.GetComponent<Animator> ();
-			anRarm1 = robotRight1.GetComponent<Animator> ();
-			anLegs1 = robotLegs1.GetComponent<Animator> ();
+			startRobot.name = "RobotLocal2";
 		} 
 		else 
 		{

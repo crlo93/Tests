@@ -220,7 +220,7 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 14
   m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300004, guid: 6b9e43d4dc877cc4dbf70f78c6fa878c, type: 3}
+  m_Mesh: {fileID: 0}
 --- !u!95 &95022655837889870
 Animator:
   serializedVersion: 3
