@@ -33,17 +33,13 @@ public class RobotMovement : NetworkBehaviour {
 	private GameObject startRobot,serverRobot,HpBarPlayer2;
 
 	public override void OnStartLocalPlayer() {
-		respawns = GameObject.FindGameObjectsWithTag("Robot");
 	}
 
 	public override void OnStartServer() {
 	}
 	public override void OnStartClient(){
-		joystick= FindObjectOfType<Joystick>();		
-		if(!isLocalPlayer)
-		{
-			return;
-		}
+		respawns = GameObject.FindGameObjectsWithTag("Robot");
+		joystick= FindObjectOfType<Joystick>();	
 		startRobot = respawns[respawns.Length-1];
 		GameObject imageHp1 = GameObject.FindGameObjectWithTag("Hp1");
 		//HEAD
@@ -94,74 +90,72 @@ public class RobotMovement : NetworkBehaviour {
 			HpBarPlayer2.transform.position=new Vector3(1000,750,0);
 			startRobot.name = "RobotLocal2";
 		} 
-		else 
+		else if (respawns.Length > 0)
 		{
-
 			Debug.Log ("Se conecto el jugador 1");
 			startRobot.name = "RobotLocal";
 		}
-
 	}
 	// Update is called once per frame
-	// void Update () {
-	// 	if (!isLocalPlayer || rb==null)
-	// 	{
-	// 		return;
-	// 	}
-	// 	rb.velocity = new Vector2 (joystick.Horizontal*10f,rb.velocity.y);
-	// 	if (joystick.Vertical > .75) {//Brincar
-	// 		anHead.SetBool("Down", false);
-	// 		anBody.SetBool("Down", false);
-	// 		anLarm.SetBool("Down", false);
-	// 		anRarm.SetBool("Down", false);
-	// 		anLegs.SetBool("Down", false);
-	// 		jumpRobot();
-	// 		canJump = false;
-	// 	} 
-	// 	else if(joystick.Vertical > -.5) {//caminar-Girar
-	// 		anHead.SetBool("Down", false);
-	// 		anBody.SetBool("Down", false);
-	// 		anLarm.SetBool("Down", false);
-	// 		anRarm.SetBool("Down", false);
-	// 		anLegs.SetBool("Down", false);
-	// 		if (joystick.Horizontal < -.5) {
-	// 			if (xAngles != 180) {
-	// 				xAngles = 180;
-	// 				tr.Rotate (yAngles, xAngles / 2, zAngles);
-	// 				tr.Rotate (yAngles, xAngles / 2, zAngles);
-	// 			}
-	// 		}
-	// 		else if(joystick.Horizontal > .5)
-	// 		{
-	// 			if (xAngles != -180) {
-	// 				xAngles = -180;
-	// 				tr.Rotate (yAngles, xAngles / 2, zAngles);
-	// 				tr.Rotate (yAngles, xAngles / 2, zAngles);
-	// 			}
-	// 		}
-	// 		if (jumps > 0)
-	// 			canJump = true;
-	// 	} 
-	// 	else if(joystick.Vertical < -.75 && jumps==2)//Agacharse
-	// 	{
-	// 		anHead.SetBool("Down", true);
-	// 		anBody.SetBool("Down", true);
-	// 		anLarm.SetBool("Down", true);
-	// 		anRarm.SetBool("Down", true);
-	// 		anLegs.SetBool("Down", true);
-	// 		rb.velocity = new Vector2 (0f,rb.velocity.y);
-	// 	}
-	// 	else {
-	// 		anHead.SetBool("Down", false);
-	// 		anBody.SetBool("Down", false);
-	// 		anLarm.SetBool("Down", false);
-	// 		anRarm.SetBool("Down", false);
-	// 		anLegs.SetBool("Down", false);
-	// 		anLegs.SetBool("Defend", false);
-	// 		if (jumps > 0)
-	// 			canJump = true;
-	// 	}
-	// }
+	void Update () {
+		if (!isLocalPlayer || rb==null)
+		{
+			return;
+		}
+		rb.velocity = new Vector2 (joystick.Horizontal*10f,rb.velocity.y);
+		if (joystick.Vertical > .75) {//Brincar
+			anHead.SetBool("Down", false);
+			anBody.SetBool("Down", false);
+			anLarm.SetBool("Down", false);
+			anRarm.SetBool("Down", false);
+			anLegs.SetBool("Down", false);
+			jumpRobot();
+			canJump = false;
+		} 
+		else if(joystick.Vertical > -.5) {//caminar-Girar
+			anHead.SetBool("Down", false);
+			anBody.SetBool("Down", false);
+			anLarm.SetBool("Down", false);
+			anRarm.SetBool("Down", false);
+			anLegs.SetBool("Down", false);
+			if (joystick.Horizontal < -.5) {
+				if (xAngles != 180) {
+					xAngles = 180;
+					tr.Rotate (yAngles, xAngles / 2, zAngles);
+					tr.Rotate (yAngles, xAngles / 2, zAngles);
+				}
+			}
+			else if(joystick.Horizontal > .5)
+			{
+				if (xAngles != -180) {
+					xAngles = -180;
+					tr.Rotate (yAngles, xAngles / 2, zAngles);
+					tr.Rotate (yAngles, xAngles / 2, zAngles);
+				}
+			}
+			if (jumps > 0)
+				canJump = true;
+		} 
+		else if(joystick.Vertical < -.75 && jumps==2)//Agacharse
+		{
+			anHead.SetBool("Down", true);
+			anBody.SetBool("Down", true);
+			anLarm.SetBool("Down", true);
+			anRarm.SetBool("Down", true);
+			anLegs.SetBool("Down", true);
+			rb.velocity = new Vector2 (0f,rb.velocity.y);
+		}
+		else {
+			anHead.SetBool("Down", false);
+			anBody.SetBool("Down", false);
+			anLarm.SetBool("Down", false);
+			anRarm.SetBool("Down", false);
+			anLegs.SetBool("Down", false);
+			anLegs.SetBool("Defend", false);
+			if (jumps > 0)
+				canJump = true;
+		}
+	}
 
 	public void hpBarChange(float health)
 	{
