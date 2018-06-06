@@ -4,8 +4,5 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes:
-  - enabled: 1
-    path: Assets/Test_Fight/Pelea.unity
-    guid: cb3332818d837104885c84d598e2e91b
+  m_Scenes: []
   m_configObjects: {}
