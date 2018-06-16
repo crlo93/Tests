@@ -45,28 +45,20 @@ public class MenuPrincipal : MonoBehaviour {
     SceneManager.LoadScene("SceneMap/MapMaster");
   }
 
+  public void Modificar() {
+    SceneManager.LoadScene("EditarRobot");
+  }
+
   public void completeFight() {
     SceneManager.LoadScene("SceneFight/Fight");
   }
 
-  public void ArmarHead() {
-    SceneManager.LoadScene("ArmarHead");
+  public void MostrarRobot() {
+    SceneManager.LoadScene("MostrarRobot");
   }
 
-  public void ArmarBody() {
-    SceneManager.LoadScene("ArmarBody");
-  }
-
-  public void ArmarArmL() {
-    SceneManager.LoadScene("ArmarArmL");
-  }
-
-  public void ArmarArmR() {
-    SceneManager.LoadScene("ArmarArmR");
-  }
-
-  public void ArmarLegs() {
-    SceneManager.LoadScene("ArmarLegs");
+  public void Robot() {
+    SceneManager.LoadScene("ArmarRobot");
   }
 
 }

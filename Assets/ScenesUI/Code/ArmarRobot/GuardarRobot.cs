@@ -21,8 +21,7 @@ public class GuardarRobot : MonoBehaviour {
     private string TBody;
     private string TLegs;
     private string Name;
-    private string usuario = "1";
-    
+
 
     public void Regresar() {
         SceneManager.LoadScene("ArmarRobot");
@@ -30,46 +29,48 @@ public class GuardarRobot : MonoBehaviour {
 
     public void RegistrarRobot()
     {
+        Debug.Log("Inicio de registro");
+        THead = TextHead.GetComponent<Text>().text;
+        TArmR = TextArmR.GetComponent<Text>().text;
+        TArmL = TextArmL.GetComponent<Text>().text;
+        TBody = TextBody.GetComponent<Text>().text;
+        TLegs = TextLegs.GetComponent<Text>().text;
+        Name = Nombre.GetComponent<InputField>().text;
+
         if (Name != "")
         {
+        string url = "http://robo-fightworld.bigbang.uno/api/GuardarRobot.php";
+        int id = PlayerPrefs.GetInt("id", 0);
+
+        WWWForm formDate = new WWWForm();
+        formDate.AddField("table", "robot");
+        formDate.AddField("id_usuario", id);
+        formDate.AddField("id_arml", TArmL);
+        formDate.AddField("id_armr", TArmR);
+        formDate.AddField("id_head", THead);
+        formDate.AddField("id_body", TBody);
+        formDate.AddField("id_legs", TLegs);
+        formDate.AddField("active", "true");
+        formDate.AddField("name", Name);
+
+        WWW www = new WWW(url, formDate);
+        StartCoroutine(request(www));
         }
         else
         {
             Debug.LogWarning("Campo obligatorio");
         }
 
-        string url = "http://robo-fightworld.bigbang.uno/api/GuardarRobot.php";
 
-        WWWForm formDate = new WWWForm();
-        formDate.AddField("table", "robot");
-        formDate.AddField("id_usuario", usuario);
-        formDate.AddField("id_arml", TArmL);
-        formDate.AddField("id_armr", TArmR);
-        formDate.AddField("id_head", THead);
-        formDate.AddField("id_body", TBody);
-        formDate.AddField("id_legs", TLegs);
-        formDate.AddField("active", "FALSE");
-        formDate.AddField("name", Name);
-
-        WWW www = new WWW(url, formDate);
-        StartCoroutine(request(www));
 
     }
     // Use this for initialization
     void Start () {
-		
+
 	}
 
     // Update is called once per frame
     void Update() {
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            if (Name != "")
-            {
-                RegistrarRobot();
-
-            }
-        }
 
         THead = TextHead.GetComponent<Text>().text;
         TArmR = TextArmR.GetComponent<Text>().text;
@@ -85,8 +86,8 @@ public class GuardarRobot : MonoBehaviour {
             yield return www;
             //displayText.text = www.text;
             //saveText.text = www.text;
+            Debug.Log(www.text);
             Regresar();
         }
 
     }
-

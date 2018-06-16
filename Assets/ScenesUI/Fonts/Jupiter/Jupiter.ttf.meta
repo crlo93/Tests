@@ -1,6 +1,7 @@
 fileFormatVersion: 2
-guid: f4bfacfea6db8914dab8f2e28760937c
+guid: 6c823ef8202bdd945845dc2f8d148696
 TrueTypeFontImporter:
+  externalObjects: {}
   serializedVersion: 4
   fontSize: 16
   forceTextureCase: -2
@@ -12,9 +13,12 @@ TrueTypeFontImporter:
   - ISL_Jupiter
   fallbackFontReferences:
   - {fileID: 12800000, guid: 7cb2912222469634ba17a77055919ea8, type: 3}
+  - {fileID: 12800000, guid: f4bfacfea6db8914dab8f2e28760937c, type: 3}
   customCharacters: 
   fontRenderingMode: 0
   ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
   userData: 
   assetBundleName: 
   assetBundleVariant: 
