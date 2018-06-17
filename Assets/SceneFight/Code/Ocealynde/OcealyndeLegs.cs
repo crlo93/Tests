@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 
 
-public class OLegs : NetworkBehaviour {
+public class OcealyndeLegs : NetworkBehaviour {
 
 	protected Animator anLegs;
 	protected Button btnAction,btnDefense;

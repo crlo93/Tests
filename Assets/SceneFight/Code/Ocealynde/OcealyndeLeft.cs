@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 
 
-public class OLarm : NetworkBehaviour {
+public class OcealyndeLeft : NetworkBehaviour {
 
 	protected Animator anLarm;
 	protected Button btnAction,btnDefense,btnJump;
