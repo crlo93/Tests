@@ -44,13 +44,13 @@ public class RobotMovement : NetworkBehaviour {
 		anLarm = robotLeft.GetComponent<Animator> ();
 		anRarm = robotRight.GetComponent<Animator> ();
 		anLegs = robotLegs.GetComponent<Animator> ();
+		hp1 = imageHp1.GetComponent<Image> ();		
 		scLarm = robotLeft.GetComponent<GroundbullLeft> ();
 		scRarm = robotRight.GetComponent<GroundbullRight> ();
-		scLegs = robotLegs.GetComponent<GroundbullLegs> ();
+		scLegs = robotLegs.GetComponent<GroundbullLegs> ();	
 		scLarm.enabled=!scLarm.enabled;
 		scRarm.enabled=!scRarm.enabled;
 		scLegs.enabled=!scLegs.enabled;
-		hp1 = imageHp1.GetComponent<Image> ();
 		xAngles = 180;
 		yAngles = 0;
 		zAngles = 0;
@@ -102,7 +102,8 @@ public class RobotMovement : NetworkBehaviour {
 		{
 			Debug.Log ("Se conecto el jugador 1");
 			startRobot.name = "RobotLocal";
-		}
+		}		
+
 	}
 	    
 	
@@ -280,7 +281,7 @@ public class RobotMovement : NetworkBehaviour {
 			attacks++;
 		} 
 		else {
-			// CmdPowerShoot();
+			CmdPowerShoot();
 			attacks = 0;
 		}
 	}
