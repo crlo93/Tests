@@ -13,7 +13,6 @@ public class power : NetworkBehaviour {
 			{
 				health.takedamage(10);
 			}
-			Debug.Log(colider);
-			// Destroy(gameObject);
+			Destroy(gameObject);
 		}
 }

@@ -17,6 +17,11 @@ TagManager:
   - Hp2
   - power
   - HpBar
+  - Head
+  - Body
+  - Left
+  - Right
+  - Legs
   layers:
   - Default
   - TransparentFX

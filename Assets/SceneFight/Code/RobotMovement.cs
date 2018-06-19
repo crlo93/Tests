@@ -24,15 +24,15 @@ public class RobotMovement : NetworkBehaviour {
 	private Rigidbody rb;
 	private Transform tr;
 	private Animator anHead,anBody,anLarm,anRarm,anLegs;
-	private GroundbullLeft scLarm;
-	private GroundbullRight scRarm;
-	private GroundbullLegs scLegs;
+	private GroundbullLeft scLarm,scLarmAux;
+	private GroundbullRight scRarm,scRarmAux;
+	private GroundbullLegs scLegs,scLegsAux;
 	private GameObject head,body,larm,rarm,legs,headO,bodyO,larmO,rarmO,legsO;
 	private Image hp1, hp2;
 	private Color hpverde;
 	private GameObject[] respawns;
 	private GameObject[] hpbars;
-	private GameObject startRobot,serverRobot,HpBarPlayer2,robotHead,robotBody,robotLeft,robotRight,robotLegs,imageHp1;
+	private GameObject startRobot,serverRobot,HpBarPlayer2,robotHead,robotBody,robotLeft,robotRight,robotLegs,imageHp1,imageHp2,rLeftAux,rRightAux,rLegsAux;
 
 	public override void OnStartLocalPlayer() {		
 		btnAction = GameObject.FindGameObjectWithTag("btnaction").GetComponent<Button>();
@@ -45,12 +45,12 @@ public class RobotMovement : NetworkBehaviour {
 		anRarm = robotRight.GetComponent<Animator> ();
 		anLegs = robotLegs.GetComponent<Animator> ();
 		hp1 = imageHp1.GetComponent<Image> ();		
-		scLarm = robotLeft.GetComponent<GroundbullLeft> ();
-		scRarm = robotRight.GetComponent<GroundbullRight> ();
-		scLegs = robotLegs.GetComponent<GroundbullLegs> ();	
-		scLarm.enabled=!scLarm.enabled;
-		scRarm.enabled=!scRarm.enabled;
-		scLegs.enabled=!scLegs.enabled;
+		// scLarm = robotLeft.GetComponent<GroundbullLeft> ();
+		// scRarm = robotRight.GetComponent<GroundbullRight> ();
+		// scLegs = robotLegs.GetComponent<GroundbullLegs> ();	
+		// scLarm.enabled=!scLarm.enabled;
+		// scRarm.enabled=!scRarm.enabled;
+		// scLegs.enabled=!scLegs.enabled;
 		xAngles = 180;
 		yAngles = 0;
 		zAngles = 0;
@@ -59,7 +59,20 @@ public class RobotMovement : NetworkBehaviour {
 		canJump = true;
 		rb = startRobot.GetComponent<Rigidbody> ();
 		tr = startRobot.GetComponent<Transform>();
-		hpverde = hp1.color;	
+		hpverde = hp1.color;		
+	 	if (respawns.Length > 1) {
+			serverRobot = respawns[respawns.Length-2];
+			rLeftAux=GameObject.FindWithTag("Left");
+			rRightAux=GameObject.FindWithTag("Right");
+			rLegsAux=GameObject.FindWithTag("Legs");		
+			scLarmAux = rLeftAux.GetComponent<GroundbullLeft> ();
+			scRarmAux = rRightAux.GetComponent<GroundbullRight> ();
+			scLegsAux = rLegsAux.GetComponent<GroundbullLegs> ();
+			hp2 = imageHp2.GetComponent<Image> ();		
+			scLarmAux.enabled=!scLarmAux.enabled;
+			scRarmAux.enabled=!scRarmAux.enabled;
+			scLegsAux.enabled=!scLegsAux.enabled;	
+	 	}
 	}
 
 	public override void OnStartServer() {
@@ -68,7 +81,8 @@ public class RobotMovement : NetworkBehaviour {
 		respawns = GameObject.FindGameObjectsWithTag("Robot");
 		joystick= FindObjectOfType<Joystick>();	
 		startRobot = respawns[respawns.Length-1];
-		imageHp1 = GameObject.FindGameObjectWithTag("Hp1");
+		hpbars = GameObject.FindGameObjectsWithTag("Hp1");
+		imageHp1 =  hpbars[hpbars.Length-1];
 		//HEAD
 		string robotHeadPath = "Groundbull"; // Take from data base active robot
 		robotHead = Instantiate(Resources.Load("Robot/"+robotHeadPath+"/Head", typeof(GameObject)),startRobot.transform.position,Quaternion.identity) as GameObject;
@@ -91,19 +105,16 @@ public class RobotMovement : NetworkBehaviour {
 		robotLegs.transform.parent = startRobot.transform;		
 		if (respawns.Length > 1) {
 			//Conecto un cliente
-			Debug.Log ("Se conecto el jugador 2");	
+			imageHp2 =  hpbars[hpbars.Length-2];
 			hpbars = GameObject.FindGameObjectsWithTag("HpBar");
-			Debug.Log (hpbars.Length);	
-			HpBarPlayer2=hpbars[hpbars.Length-1];
+			HpBarPlayer2=hpbars[hpbars.Length-2];
 			HpBarPlayer2.transform.position=new Vector3(1000,750,0);
 			startRobot.name = "RobotLocal2";
 		} 
 		else if (respawns.Length > 0)
 		{
-			Debug.Log ("Se conecto el jugador 1");
 			startRobot.name = "RobotLocal";
 		}		
-
 	}
 	    
 	
@@ -206,7 +217,7 @@ public class RobotMovement : NetworkBehaviour {
 					jumps = 0;
 				}else 
 				{
-					Debug.Log(contact.otherCollider.name);
+					// Debug.Log(contact.otherCollider.name);
 					canJump = true;
 					jumps = 1;
 				}
@@ -231,12 +242,12 @@ public class RobotMovement : NetworkBehaviour {
 	[Command]
 	void CmdPowerShoot()
 	{
-		GameObject power = (GameObject) Instantiate(powerPrefab as GameObject,new Vector3((tr.position.x-(xAngles/90)),tr.position.y,tr.position.z),tr.rotation);
-		power.GetComponent<Transform>().Rotate (0,270,0);
-		power.GetComponent<Rigidbody>().velocity=power.transform.forward * 20.0f;
-		//spawn the bullet on the clients
-		NetworkServer.Spawn(power);
-		Destroy(power,1f);
+			Debug.Log("Vergazo");
+		// GameObject power = (GameObject) Instantiate(powerPrefab as GameObject,new Vector3((tr.position.x-(xAngles/90)),tr.position.y,tr.position.z),tr.rotation);
+		// power.GetComponent<Transform>().Rotate (0,270,0);
+		// power.GetComponent<Rigidbody>().velocity=power.transform.forward * 20.0f;
+		// NetworkServer.Spawn(power);
+		// Destroy(power,1f);
 	}
 
 	public void hpBarChange(float health)
