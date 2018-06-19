@@ -202,6 +202,7 @@ MonoBehaviour:
   Health: 100
   powerPrefab: {fileID: 1462333779797950, guid: d4527edad2bf4ab46a478bd87f619d70,
     type: 2}
+  powerTr: {fileID: 4851570126713834, guid: d4527edad2bf4ab46a478bd87f619d70, type: 2}
 --- !u!114 &114426584149795620
 MonoBehaviour:
   m_ObjectHideFlags: 1

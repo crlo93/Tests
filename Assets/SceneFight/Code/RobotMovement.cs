@@ -18,7 +18,7 @@ public class RobotMovement : NetworkBehaviour {
 	private int defense=1;
 	private float xAngles, yAngles, zAngles;
 	public GameObject powerPrefab;
-	private Transform powerTr;
+	public Transform powerTr;
 	protected Joystick joystick;
 	protected Button btnAction,btnDefense;
 	private Rigidbody rb;
