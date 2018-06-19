@@ -27,30 +27,58 @@ public class RobotMovement : NetworkBehaviour {
 	private GroundbullLeft scLarm,scLarmAux;
 	private GroundbullRight scRarm,scRarmAux;
 	private GroundbullLegs scLegs,scLegsAux;
+	private OcealyndeLeft soLarm,soLarmAux;
+	private OcealyndeRight soRarm,soRarmAux;
+	private OcealyndeLegs soLegs,soLegsAux;
 	private GameObject head,body,larm,rarm,legs,headO,bodyO,larmO,rarmO,legsO;
 	private Image hp1, hp2;
 	private Color hpverde;
 	private GameObject[] respawns;
 	private GameObject[] hpbars;
 	private GameObject startRobot,serverRobot,HpBarPlayer2,robotHead,robotBody,robotLeft,robotRight,robotLegs,imageHp1,imageHp2,rLeftAux,rRightAux,rLegsAux;
+	private string robotHeadPath, robotBodyPath, robotLeftPath, robotRightPath, robotLegsPath;
 
 	public override void OnStartLocalPlayer() {		
 		btnAction = GameObject.FindGameObjectWithTag("btnaction").GetComponent<Button>();
 		btnDefense = GameObject.FindGameObjectWithTag("btndefense").GetComponent<Button>();
 		btnAction.onClick.AddListener(attack);
 		btnDefense.onClick.AddListener(defend);
-		anHead = robotHead.GetComponent<Animator> ();
-		anBody = robotBody.GetComponent<Animator> ();
-		anLarm = robotLeft.GetComponent<Animator> ();
-		anRarm = robotRight.GetComponent<Animator> ();
-		anLegs = robotLegs.GetComponent<Animator> ();
+		anHead = robotHead.GetComponent<NetworkAnimator> ().GetComponent<Animator>();
+		anBody = robotBody.GetComponent<NetworkAnimator> ().GetComponent<Animator>();
+		anLarm = robotLeft.GetComponent<NetworkAnimator> ().GetComponent<Animator>();
+		anRarm = robotRight.GetComponent<NetworkAnimator> ().GetComponent<Animator>();
+		anLegs = robotLegs.GetComponent<NetworkAnimator> ().GetComponent<Animator>();
 		hp1 = imageHp1.GetComponent<Image> ();		
-		// scLarm = robotLeft.GetComponent<GroundbullLeft> ();
-		// scRarm = robotRight.GetComponent<GroundbullRight> ();
-		// scLegs = robotLegs.GetComponent<GroundbullLegs> ();	
-		// scLarm.enabled=!scLarm.enabled;
-		// scRarm.enabled=!scRarm.enabled;
-		// scLegs.enabled=!scLegs.enabled;
+		if(robotLeftPath=="Groundbull")
+		{
+			scLarm = robotLeft.GetComponent<GroundbullLeft> ();
+			scLarm.enabled=!scLarm.enabled;
+		}
+		else
+		{
+			soLarm = robotLeft.GetComponent<OcealyndeLeft> ();
+			soLarm.enabled=!soLarm.enabled;
+		}
+		if(robotRightPath=="Groundbull")
+		{
+			scRarm = robotRight.GetComponent<GroundbullRight> ();
+			scRarm.enabled=!scRarm.enabled;
+		}
+		else
+		{
+			soRarm = robotRight.GetComponent<OcealyndeRight> ();
+			soRarm.enabled=!soRarm.enabled;
+		}
+		if(robotLegsPath=="Groundbull")
+		{
+			scLegs = robotLegs.GetComponent<GroundbullLegs> ();	
+			scLegs.enabled=!scLegs.enabled;
+		}
+		else
+		{
+			soLegs = robotLegs.GetComponent<OcealyndeLegs> ();
+			soLegs.enabled=!soLegs.enabled;
+		}
 		xAngles = 180;
 		yAngles = 0;
 		zAngles = 0;
@@ -65,13 +93,13 @@ public class RobotMovement : NetworkBehaviour {
 			rLeftAux=GameObject.FindWithTag("Left");
 			rRightAux=GameObject.FindWithTag("Right");
 			rLegsAux=GameObject.FindWithTag("Legs");		
-			scLarmAux = rLeftAux.GetComponent<GroundbullLeft> ();
-			scRarmAux = rRightAux.GetComponent<GroundbullRight> ();
-			scLegsAux = rLegsAux.GetComponent<GroundbullLegs> ();
+			// scLarmAux = rLeftAux.GetComponent<GroundbullLeft> ();
+			// scRarmAux = rRightAux.GetComponent<GroundbullRight> ();
+			// scLegsAux = rLegsAux.GetComponent<GroundbullLegs> ();
 			hp2 = imageHp2.GetComponent<Image> ();		
-			scLarmAux.enabled=!scLarmAux.enabled;
-			scRarmAux.enabled=!scRarmAux.enabled;
-			scLegsAux.enabled=!scLegsAux.enabled;	
+			// scLarmAux.enabled=!scLarmAux.enabled;
+			// scRarmAux.enabled=!scRarmAux.enabled;
+			// scLegsAux.enabled=!scLegsAux.enabled;	
 	 	}
 	}
 
@@ -84,23 +112,23 @@ public class RobotMovement : NetworkBehaviour {
 		hpbars = GameObject.FindGameObjectsWithTag("Hp1");
 		imageHp1 =  hpbars[hpbars.Length-1];
 		//HEAD
-		string robotHeadPath = "Groundbull"; // Take from data base active robot
+ 		robotHeadPath = "Groundbull"; // Take from data base active robot
 		robotHead = Instantiate(Resources.Load("Robot/"+robotHeadPath+"/Head", typeof(GameObject)),startRobot.transform.position,Quaternion.identity) as GameObject;
 		robotHead.transform.parent = startRobot.transform;
 		//BODY
-		string robotBodyPath = "Groundbull"; // Take from data base active robot
+		robotBodyPath = "Groundbull"; // Take from data base active robot
 		robotBody = Instantiate(Resources.Load("Robot/"+robotBodyPath+"/Body", typeof(GameObject)),startRobot.transform.position,Quaternion.identity) as GameObject;
 		robotBody.transform.parent = startRobot.transform;
 		//LEFT
-		string robotLeftPath = "Groundbull"; // Take from data base active robot
+		robotLeftPath = "Groundbull"; // Take from data base active robot
 		robotLeft = Instantiate(Resources.Load("Robot/"+robotLeftPath+"/Left", typeof(GameObject)),startRobot.transform.position,Quaternion.identity) as GameObject;
 		robotLeft.transform.parent = startRobot.transform;
 		//RIGHT
-		string robotRightPath = "Groundbull"; // Take from data base active robot
+		robotRightPath = "Groundbull"; // Take from data base active robot
 		robotRight = Instantiate(Resources.Load("Robot/"+robotRightPath+"/Right", typeof(GameObject)),startRobot.transform.position,Quaternion.identity) as GameObject;
 		robotRight.transform.parent = startRobot.transform;
 		//LEGS
-		string robotLegsPath = "Groundbull"; // Take from data base active robot
+		robotLegsPath = "Groundbull"; // Take from data base active robot
 		robotLegs = Instantiate(Resources.Load("Robot/"+robotLegsPath+"/Legs", typeof(GameObject)),startRobot.transform.position,Quaternion.identity) as GameObject;
 		robotLegs.transform.parent = startRobot.transform;		
 		if (respawns.Length > 1) {
