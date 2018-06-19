@@ -270,6 +270,7 @@ public class RobotMovement : NetworkBehaviour {
 	[Command]
 	void CmdPowerShoot()
 	{
+		Debug.Log("Balita");
 		GameObject power = (GameObject) Instantiate(powerPrefab as GameObject,new Vector3((tr.position.x-(xAngles/90)),tr.position.y,tr.position.z),tr.rotation);
 		power.GetComponent<Transform>().Rotate (0,270,0);
 		power.GetComponent<Rigidbody>().velocity=power.transform.forward * 20.0f;
